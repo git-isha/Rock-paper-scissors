@@ -1,0 +1,158 @@
+# Rock-paper-scissors
+
+#---------ROCK PAPER SCISSORS GAME GUI----------- 
+
+#  importing libraries
+
+import random
+
+from tkinter import *
+
+global output  #  global output declaration
+
+# main window
+
+main_window=Tk()             #  ceating main window
+main_window.title("RoCk PaPer ScIsSoRs GaMe")
+main_window.geometry("400x300")
+main_window.configure(bg="red2")
+
+#  Label in main window
+
+lbl1=Label(main_window,text="WELCOME TO THE GAME",font="bold",bg="silver")
+lbl1.pack()
+lbl2=Label(main_window,text="",bg="red2")
+lbl2.pack()
+
+def comp():      #  fxn for playing with computer
+    
+    comp_win=Tk()        #  creating playing window
+    comp_win.title("With CoMpUtEr")
+    comp_win.geometry("1000x500")
+    comp_win.configure(bg="DeepSkyBlue2")
+    
+    # fxns calculating who won
+    
+    def get_winner(users_call):     #  fxn to get the winner
+                                    #  variable users_call contains user's choice
+            
+        # selecting computer's choice
+        comp_choice = random.randint(1, 3) 
+
+        if comp_choice == 1:
+            comp_throw = "rock"   # variable throw contains computer's choice
+        elif comp_choice == 2:
+            comp_throw = "scissors"
+        else:
+            comp_throw = "paper"
+
+        if (comp_throw == "rock" and users_call == "paper") or (comp_throw == "paper" and users_call == "scissors")or (comp_throw == "scissors" and users_call == "rock"):
+            result = "You won!"
+        elif comp_throw == users_call:
+            result = "It's a draw"
+        else:
+            result = "You lost!"
+        
+        output.config(text="Computer did: " + comp_throw + "\n" + result)
+    
+    #  Fxns passing user's choice as an argument to get_winner() fxn
+    
+    def pass_scissor():
+        get_winner("scissors")
+    
+    def pass_rock():
+        get_winner("rock")
+    
+    def pass_paper():
+        get_winner("paper")
+    
+    def destroy_playing_window():    # destroying playing window
+        comp_win.destroy()
+    
+    #  EXIT button
+    exit= Button(comp_win, text = "Stop and Exit",bg= "PeachPuff2", command=destroy_playing_window,height=5, width=20)
+    exit.pack(side = "bottom")
+    
+    #  SCISSORS button
+    scissors = Button(comp_win, text = "Scissors", bg = "blue violet", padx=10, pady=5, command=pass_scissor, height=5,width=20)
+    scissors.pack(side = "bottom")
+    
+    #  ROCK button
+    rock = Button(comp_win, text = "Rock", bg = "indian red", padx=10, pady=5, command=pass_rock,height=5, width=20)
+    rock.pack(side = "bottom")
+    
+    #  PAPER button
+    paper = Button(comp_win, text = "Paper", bg = "HotPink1", padx=10, pady=5, command=pass_paper,height=5, width=20)
+    paper.pack(side = "bottom")
+    
+    # Output Label
+    output = Label(comp_win, width=20, fg = "red", text="What's your call?",padx=20, pady=10,font="bold",bg="SlateGray3")
+    output.pack(side="top")
+    
+
+
+def play():         #  window containing start button
+    
+    def destroy_start_button_window():    #  destroying start button window
+        play_win.destroy()
+        
+    main_window.destroy()
+    
+    play_win=Tk()            #  creating start button window
+    play_win.geometry("250x250")
+    play_win.title("PLAY")
+    play_win.configure(bg="blue violet")
+    #  START button
+    single=Button(play_win,text="START",padx=10, pady=5,height=2,width=15,font="bold",fg="black",bg="maroon1",command=comp)
+    single.pack()
+    
+    #  EXIT button
+    exit2=Button(play_win, text = "exit",bg= "yellow2", padx=2, pady=1, command=destroy_start_button_window,height=5, width=20)
+    exit2.pack(side = "bottom")
+
+def rules():           #  rules displaying button descrption
+    
+    rule_win=Tk()            #  creating rule window
+    rule_win.title("GaMe RuLEs")
+    rule_win.geometry("400x400")
+    rule_win.configure(bg="light pink")
+    
+    #  displaying rules of the game
+    
+    rule_lbl_1=Label(rule_win,text="Winning Rules as follows :",font="bold")
+    rule_lbl_1.pack()
+    
+    rule_lbl_3=Label(rule_win,text="Rock vs paper-> paper wins")
+    rule_lbl_3.pack()
+    
+    rule_lbl_4=Label(rule_win,text="Rock vs scissor-> Rock wins")
+    rule_lbl_4.pack()
+    
+    rule_lbl_5=Label(rule_win,text="paper vs scissor-> scissor wins.")
+    rule_lbl_5.pack()
+    
+    rule_win.mainloop()
+
+def destroy_main_window():   #   destroying main window
+    main_window.destroy()
+    
+#   main window buttons
+
+#  PLAY button
+play_btn=Button(main_window,text="PLAY",padx=10, pady=5,height=4,width=7,font="bold",fg="black",bg="sienna1",command=play)
+play_btn.pack()
+
+#  RULES button
+rules_btn=Button(main_window,text="RULES",padx=10, pady=5,height=4,width=7,font="bold",fg="black",bg="medium orchid",command=rules)
+rules_btn.pack()
+
+#  EXIT button
+exit1=Button(main_window, text = "Exit Game",bg= "honeydew2", padx=2, pady=1, command=destroy_main_window,height=5, width=20)
+exit1.pack(side = "bottom")
+
+
+main_window.mainloop()
+
+
+
+
